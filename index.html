@@ -3,272 +3,280 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CFNE ☕ - Dashboard</title>
+  <title>Pet Dashboard</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
     body {
-      display: flex;
-      height: 100vh;
-      background: #f3f2f1;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3ece6;
+      color: #333;
+      overflow-x: hidden;
     }
 
-    /* Sidebar */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .emoji-banner {
+      font-size: 3rem;
+      text-align: center;
+      margin: 1rem;
+    }
+
+    .main {
+      display: flex;
+      width: 90%;
+      max-width: 1200px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 50px;
+    }
+
     .sidebar {
       width: 220px;
-      background-color: #8b5c2c;
-      color: white;
+      background-color: #f9f1d9;
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .sidebar h1 {
-      font-size: 22px;
-      margin-bottom: 30px;
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 18px;
     }
 
     .sidebar ul {
       list-style: none;
       padding: 0;
+      margin: 20px 0;
     }
 
     .sidebar ul li {
-      margin: 15px 0;
+      margin: 10px 0;
       cursor: pointer;
-    }
-
-    .sidebar ul li:hover {
-      text-decoration: underline;
-    }
-
-    /* Main content */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .navbar {
-      background: white;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .navbar input {
-      padding: 5px 10px;
-      width: 200px;
-    }
-
-    .navbar .profile {
-      display: flex;
-      align-items: center;
-    }
-
-    .navbar .profile img {
-      width: 30px;
-      border-radius: 50%;
-      margin-left: 10px;
+      font-weight: bold;
     }
 
     .content {
+      flex-grow: 1;
+      padding: 30px;
       display: flex;
-      flex: 1;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    .products {
-      flex: 3;
-      padding: 20px;
-      overflow-y: auto;
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
 
-    .products h2 {
-      margin-bottom: 20px;
+    .topbar button {
+      padding: 8px 16px;
+      background-color: #6b4fbc;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      margin-right: 10px;
+      cursor: pointer;
     }
 
-    .card-grid {
+    .topbar .profile {
+      font-weight: bold;
+    }
+
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
 
     .card {
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    .card img {
-      max-width: 100%;
-      border-radius: 6px;
-      height: 120px;
-      object-fit: cover;
+      background-color: #fbeecb;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
     .card h3 {
+      margin-top: 0;
       font-size: 16px;
-      margin: 10px 0 5px;
-    }
-
-    .card p {
-      color: #555;
-      font-size: 14px;
       margin-bottom: 10px;
     }
 
-    .card button {
-      background: #8b5c2c;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      cursor: pointer;
-      border-radius: 4px;
+    .card .stat-item {
+      margin: 5px 0;
     }
 
-    .card button:disabled {
-      background: #ccc;
-    }
-
-    /* Cart */
-    .cart {
-      width: 250px;
-      background: #f7f7f7;
-      border-left: 1px solid #ccc;
-      padding: 20px;
-    }
-
-    .cart h3 {
-      margin-bottom: 20px;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .checkout {
-      margin-top: 20px;
-      background: #8b5c2c;
-      color: white;
-      border: none;
-      padding: 10px;
+    .card .graph {
       width: 100%;
-      cursor: pointer;
-      border-radius: 4px;
+      height: 100px;
     }
 
-    .out-of-stock {
-      color: red;
-      font-weight: bold;
+    .card .pets {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .footer {
+      font-size: 12px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    /* 🔽 New Section with Animation 🔽 */
+    .animated-section {
+      width: 100%;
+      background-color: #fff9e6;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .animated-character {
+      font-size: 5rem;
+      margin: 20px 0;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: slideIn 2s ease forwards;
+    }
+
+    .animated-text {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 1s;
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h1>☕ CFNE</h1>
-    <ul>
-      <li>Dashboard</li>
-      <li>Your Favorite</li>
-      <li>Chocolate</li>
-      <li>Transaction History</li>
-      <li>News & Updates</li>
-      <li>Settings</li>
-      <li>Logout</li>
-    </ul>
-  </div>
-
-  <!-- Main Content -->
-  <div class="main-content">
-    <div class="navbar">
-      <input type="text" placeholder="Search..."/>
-      <div class="profile">
-        <span>Jenny Mendez</span>
-        <img src="https://i.pravatar.cc/30" alt="profile" />
-      </div>
-    </div>
-
-    <div class="content">
-      <!-- Products -->
-      <div class="products">
-        <h2>Our Coffee</h2>
-        <div class="card-grid" id="product-list">
-          <!-- Cards will be generated by JS -->
+  <div class="container">
+    <div class="emoji-banner">🐶 🐕 🐾 🐩 🐕‍🦺 🐾 🐶</div>
+    <div class="main">
+      <div class="sidebar">
+        <div>
+          <h2>Dashboard</h2>
+          <ul>
+            <li>Pet Listings</li>
+            <li>Statistics</li>
+            <li>Settings</li>
+          </ul>
         </div>
       </div>
 
-      <!-- Cart -->
-      <div class="cart">
-        <h3>Your Cart</h3>
-        <div id="cart-items"></div>
-        <button class="checkout" onclick="checkout()">Go to Checkout</button>
+      <div class="content">
+        <div class="topbar">
+          <button>ADD A PET</button>
+          <div class="profile">Sadwick</div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>🐾 Adoption Center</h3>
+            <p>Explore available pets, track adoption progress, and help give them the loving homes they deserve.</p>
+            <div class="stat-item">68 Adoptable Pets Posted</div>
+            <div class="stat-item">20 Adoptions Pending</div>
+            <div class="stat-item">76 Pets on Hold</div>
+            <div class="stat-item">34 Pets Adopted</div>
+            <div class="stat-item">08 Draft</div>
+          </div>
+
+          <div class="card">
+            <h3>This Week Views</h3>
+            <canvas id="viewsGraph" class="graph"></canvas>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>🐕 Pet Summary</h3>
+            <p>We care for a variety of adorable pets including dogs, puppies, and special breeds. Each pet is provided with proper medical care, love, and training while waiting for their forever home.</p>
+            <div class="pets">
+              <span>🐶</span>
+              <span>🐕</span>
+              <span>🐩</span>
+              <span>+3</span>
+            </div>
+            <p style="margin-top: 10px; font-size: 14px; color: #444;">
+              These pets are currently available for adoption. Each one has been health-checked and is looking for a loving home. Click on any pet to view more details and start the adoption process.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Recent Pets</h3>
+            <div class="stat-item"><strong>Harry:</strong> A playful golden retriever who loves people and fetch games.</div>
+            <div class="stat-item"><strong>Coco:</strong> Calm and affectionate cat, perfect for indoor living.</div>
+            <div class="stat-item"><strong>Max Verstappen:</strong> Energetic husky mix with a need for active owners.</div>
+            <div class="stat-item"><strong>Brook:</strong> Senior labrador who enjoys gentle walks and cuddles.</div>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- 👇 New Scrollable Section with Character & Dog -->
+    <div class="animated-section">
+      <div class="animated-character">🧑‍🦰🐕</div>
+      <div class="animated-text">
+        Meet our volunteers and their loyal furry friends! Every pet in our shelter receives personalized care and love before they go to their forever homes. These characters are a symbol of the bond between humans and pets — strong, loyal, and filled with love. 🐾
+      </div>
+    </div>
+
+    <div class="footer">
+      Copyright © 2020 Somebody. All rights reserved.
     </div>
   </div>
 
   <script>
-    const products = [
-      { id: 1, name: "Cream cappuccino coffee", price: 1, img: "https://source.unsplash.com/200x150/?cappuccino", stock: true },
-      { id: 2, name: "Cream macchiato coffee", price: 1, img: "https://source.unsplash.com/200x150/?macchiato", stock: true },
-      { id: 3, name: "Cream marble coffee", price: 1, img: "https://source.unsplash.com/200x150/?latte", stock: true },
-      { id: 4, name: "Original black coffee", price: 1, img: "https://source.unsplash.com/200x150/?blackcoffee", stock: false },
-      { id: 5, name: "Arabica coffee", price: 1, img: "https://source.unsplash.com/200x150/?arabica", stock: true },
-      { id: 6, name: "Robusta coffee", price: 1, img: "https://source.unsplash.com/200x150/?robusta", stock: false },
-    ];
+    const canvas = document.getElementById('viewsGraph');
+    const ctx = canvas.getContext('2d');
 
-    const cart = [];
+    function drawLineGraph() {
+      const width = canvas.width = canvas.offsetWidth;
+      const height = canvas.height = canvas.offsetHeight;
 
-    function renderProducts() {
-      const container = document.getElementById('product-list');
-      container.innerHTML = '';
-      products.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}" />
-          <h3>${p.name}</h3>
-          <p>$${p.price} ${!p.stock ? '<span class="out-of-stock">(Out of stock)</span>' : ''}</p>
-          <button onclick="addToCart(${p.id})" ${!p.stock ? 'disabled' : ''}>Add to Cart</button>
-        `;
-        container.appendChild(card);
+      const data = [45, 50, 60, 70, 78, 85, 90];
+      const spacing = width / (data.length - 1);
+
+      ctx.clearRect(0, 0, width, height);
+      ctx.beginPath();
+      ctx.strokeStyle = '#ff9900';
+      ctx.lineWidth = 2;
+
+      data.forEach((point, index) => {
+        const x = spacing * index;
+        const y = height - (point / 100) * height;
+        if (index === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
       });
+
+      ctx.stroke();
     }
 
-    function addToCart(id) {
-      const product = products.find(p => p.id === id);
-      cart.push(product);
-      renderCart();
-    }
-
-    function renderCart() {
-      const cartItems = document.getElementById('cart-items');
-      cartItems.innerHTML = '';
-      cart.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.className = 'cart-item';
-        div.innerHTML = `
-          <span>${item.name}</span>
-          <span>$${item.price}</span>
-        `;
-        cartItems.appendChild(div);
-      });
-    }
-
-    function checkout() {
-      alert("Thanks for your order! ☕");
-    }
-
-    renderProducts();
+    window.addEventListener('load', drawLineGraph);
+    window.addEventListener('resize', drawLineGraph);
   </script>
 </body>
 </html>
